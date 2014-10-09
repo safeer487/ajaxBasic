@@ -1,0 +1,11 @@
+Realiza un formulario.
+
+- Nombre.
+- Asunto.
+- E-mail.
+- Mensaje.
+
+
+1) Cuando se pulse en "Enviar", los datos serán enviados a procesar.php ; el cual imprimirá por pantalla todos los campos.
+
+2) Imprime debajo todo lo recibido.

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js canvas - panorama fisheye demo</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<script src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Spirax' rel='stylesheet' type='text/css'>
+		<style>
+			body {
+				background-color: rgb(200,200,200);
+				margin: 0px;
+				overflow: hidden;
+			}
+			h1 {
+				font-family: 'Spirax';
+			}
+			#info {
+				position: absolute;
+				top: 0px; width: 100%;
+				color: #ffffff;
+				padding: 5px;
+				font-family:Monospace;
+				font-size:13px;
+				font-weight: bold;
+				text-align:center;
+			}
+
+			a {
+				color: #ffffff;
+			}
+			#centro {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				background-color: #FFF;
+				width: 400px;
+				height: 500px;
+				margin-left: -200px;
+				margin-top: -250px;
+				border-radius: 50px;
+				color: #000;
+				text-align: center;
+			}
+			textarea {
+				width: 350px;
+				height: 350px;
+				background-color: #E4E4E4;
+				font-size: 28px;
+			}
+			input {
+				margin-top: 15px;
+				background-color: #E69F0F;
+				border-style: solid;
+				border-width: 2px;
+				border-color: #FFF;
+				color: #FFF;
+				width: 350px;
+				height: 40px;
+				font-size: 23px;
+				cursor: pointer;
+			}
+			input:hover {
+				background-color: #D3BB0C;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="container"></div>
+		<section>
+			<div id="centro">
+				<h1>Bloc de notas en nube</h1>
+				<textarea></textarea>
+				<input type="button" id="boton" value="Guardar">
+			</div>
+		</section>
+	</body>
+</html>
+<script>
+
+			var camera, scene, renderer;
+
+			var texture_placeholder,
+			isUserInteracting = false,
+			onMouseDownMouseX = 0, onMouseDownMouseY = 0,
+			lon = 90, onMouseDownLon = 0,
+			lat = 0, onMouseDownLat = 0,
+			phi = 0, theta = 0,
+			target = new THREE.Vector3();
+
+			init();
+
+			function init() {
+
+				var container, mesh;
+
+				container = document.getElementById( 'container' );
+
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
+
+				scene = new THREE.Scene();
+
+				texture_placeholder = document.createElement( 'canvas' );
+				texture_placeholder.width = 128;
+				texture_placeholder.height = 128;
+
+				var context = texture_placeholder.getContext( '2d' );
+				context.fillStyle = 'rgb( 200, 200, 200 )';
+				context.fillRect( 0, 0, texture_placeholder.width, texture_placeholder.height );
+
+				var materials = [
+
+					loadTexture( 'img/px.jpg' ), // right
+					loadTexture( 'img/nx.jpg' ), // left
+					loadTexture( 'img/py.jpg' ), // top
+					loadTexture( 'img/ny.jpg' ), // bottom
+					loadTexture( 'img/pz.jpg' ), // back
+					loadTexture( 'img/nz.jpg' ) // front
+
+				];
+
+				mesh = new THREE.Mesh( new THREE.CubeGeometry( 300, 300, 300, 7, 7, 7 ), new THREE.MeshFaceMaterial( materials ) );
+				mesh.scale.x = - 1;
+				scene.add( mesh );
+
+				for ( var i = 0, l = mesh.geometry.vertices.length; i < l; i ++ ) {
+
+					var vertex = mesh.geometry.vertices[ i ];
+
+					vertex.normalize();
+					vertex.multiplyScalar( 550 );
+
+				}
+
+				renderer = new THREE.CanvasRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				container.appendChild( renderer.domElement );
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+
+			}
+
+			function loadTexture( path ) {
+
+				var texture = new THREE.Texture( texture_placeholder );
+				var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: true } );
+
+				var image = new Image();
+				image.onload = function () {
+
+					texture.needsUpdate = true;
+					material.map.image = this;
+
+					render();
+
+				};
+				image.src = path;
+
+				return material;
+
+			}
+
+			function render() {
+				lon += 1
+				lat = Math.max( - 85, Math.min( 85, lat ) );
+				phi = THREE.Math.degToRad( 90 - lat );
+				theta = THREE.Math.degToRad( lon );
+
+				target.x = 500 * Math.sin( phi ) * Math.cos( theta );
+				target.y = 500 * Math.cos( phi );
+				target.z = 500 * Math.sin( phi ) * Math.sin( theta );
+
+				camera.position.x = - target.x;
+				camera.position.y = - target.y;
+				camera.position.z = - target.z;
+				camera.lookAt( target );
+
+				renderer.render( scene, camera );
+			}
+
+			setInterval("render()", 50)
+
+		</script>

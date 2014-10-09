@@ -1,0 +1,1 @@
+Crea una aplicación para guardar notas. La interfaz contendrá un campo de texto para el título, otro para el contenido y un botón con el texto "Guardar". Cuando se pulse sobre ese botón, se deberá guardar la información en un JSON. Incluirá la fecha en la que fue redactado. 

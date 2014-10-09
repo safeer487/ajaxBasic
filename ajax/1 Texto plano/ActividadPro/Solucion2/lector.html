@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Documento sin título</title>
+<style type="text/css">
+#DivGris {
+	background-color: #999;
+	height: 575px;
+	width: 400px;
+	margin-top: 100px;
+	border-radius: 20px;
+	padding-top: 25px;
+}
+
+#DivPantalla {
+	background-color: #FFC;
+	clear: both;
+	height: 500px;
+	width: 350px;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-bottom: 10px;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 16px;
+	text-align: left;
+	vertical-align: middle;
+	}
+</style>
+</head>
+
+<body>
+	<center>
+	<div id="DivGris">
+    <div id="DivPantalla"></div>
+	<input type="button" name="retroceder" id="boton1" onClick="retrocederPagina()" value="<---">
+    <input type="button" name="avanzar" id="boton2" onClick="pasarPagina()" value="--->"><hr>
+	</div>
+    </center>
+    <script>
+    /* Variables */
+    var iPag = 1;
+    var iLimInf = 1;
+    var iLimSup = 5;
+
+    /**
+     * Constructor
+     */
+    recogerTexto(iPag);
+
+    /**
+     * Metodo que pasa la pagina
+     */
+    var pasarPagina = function() {
+    	//Comprueba que no se pasa
+    	if(iPag < iLimSup) {
+    		iPag++;
+    		recogerTexto(iPag);
+    	}
+    }
+
+    /**
+     * Metodo que retrocede la pagina
+     */
+    var retrocederPagina = function() {
+    	//Comprueba que no puede bajar de 1
+    	if(iPag > iLimInf) {
+    		iPag--;
+    		recogerTexto(iPag)
+    	}
+    }
+
+    /*************** AJAX ******************/
+	function leerDatos(){
+		if (oXML.readyState  == 4) {
+		   document.getElementById("DivPantalla").innerHTML = oXML.responseText
+		}
+	} 
+	function AJAXCrearObjeto(){
+		var obj;
+		if(window.XMLHttpRequest) { // no es IE
+			obj = new XMLHttpRequest()
+		} else { // Es IE o no tiene el objeto
+		  try {
+			obj = new ActiveXObject("Microsoft.XMLHTTP");
+		  }  catch (e) {
+		    alert('El navegador utilizado no está soportado');
+		  }
+		}
+		return obj
+	} 
+	   
+	function recogerTexto(iniPag) {
+	 	oXML = AJAXCrearObjeto();
+		oXML.open('GET', 'textos/TextoCuervo' + iniPag + '.txt')
+		oXML.onreadystatechange = leerDatos;
+		oXML.send('');
+	}
+    </script>
+</body>
+</html>

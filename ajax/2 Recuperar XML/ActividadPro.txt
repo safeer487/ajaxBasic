@@ -1,0 +1,1 @@
+En un XML de alumnos, pon a todos tus compañeros. Deben tener: id, nombre y género. Después imprimirlos en dos listas diferentes: chicos y chicas.

@@ -1,0 +1,70 @@
+<html>
+<head>
+	<style type="text/css">
+		body {
+			text-align: center;
+		}
+		input {
+			width: 200px;
+			height: 50px;
+			font-size: 20px;
+		}
+		#divResultados {
+			position: absolute;
+			top: 50px;
+			left: 50%;
+			width: 200px;
+			min-height: 0px;
+			margin-left: -100px;
+			background-color: #E6E6E6;
+			box-shadow: 10px 10px 5px #888;
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<input type="text" id="campoTexto">
+		<div id="divResultados"></div>
+	</section>
+</body>
+</html>
+<script type="text/javascript">
+var READY_STATE_COMPLETE = 4;
+var oXML = null; 
+ 
+function AJAXCrearObjeto() {
+  if(window.XMLHttpRequest) {
+    return new XMLHttpRequest(); 
+  }
+  else if(window.ActiveXObject) {
+    return new ActiveXObject("Microsoft.XMLHTTP");
+  } 
+}
+ 
+function crea_query_string() {
+  var sNombre = document.getElementById("campoTexto").value;
+ 
+  return "nombre=" + encodeURIComponent(sNombre) +
+         "&nocache=" + Math.random();
+}
+ 
+function valida() {
+  oXML = AJAXCrearObjeto();
+  if(oXML) {
+    oXML.onreadystatechange = procesaRespuesta;
+    oXML.open("GET", "buscador.php?" + crea_query_string(), true);
+    oXML.send('');
+  }
+}
+ 
+function procesaRespuesta() {
+  if(oXML.readyState == READY_STATE_COMPLETE) {
+    if(oXML.status == 200) {
+      document.getElementById("divResultados").innerHTML = oXML.responseText;
+    }
+  }
+}
+
+setInterval("valida()", 200)
+</script>

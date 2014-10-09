@@ -1,0 +1,9 @@
+Como pasatiempo has creado una secta. Para que la gente se pueda inscribir has hecho un formulario.
+
+- Nombre.
+- Edad.
+- Nacionalidad.
+
+1) Cuando la gente se registre se enviará los datos con AJAX por medio de POST a registrar.php , quién guardará la información en una base de datos.
+
+2) Añade un apartado donde aparezcan todos miembros. Debe obtener los datos de la base de datos cada 3 segundos. Con esto conseguirás que cuando alguien nuevo se registre, aparezca “instantáneamente” en la lista de adeptos. 

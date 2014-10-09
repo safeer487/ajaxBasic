@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+</head>
+<body>
+	<h2 id="resultado"></h2>
+	<input type="text" id="numero1" name="numero1">
+	<input type="text" id="numero2" name="numero2">
+	<input type="button" onclick="calcular()" value="Calcular">
+	<script>
+	function leerDatos(){
+	    if (oXML.readyState  == 4) {
+	       document.getElementById("resultado").innerHTML = oXML.responseText
+	    }
+	} 
+	function AJAXCrearObjeto(){
+	   var obj;
+	   if(window.XMLHttpRequest) { // no es IE
+	      obj = new XMLHttpRequest()
+	    } else { // Es IE o no tiene el objeto
+	       try {
+	         obj = new ActiveXObject("Microsoft.XMLHTTP");
+	    	}  catch (e) {
+	        alert('El navegador utilizado no está soportado');
+	      }
+	    }
+	    return obj
+	  } 
+	   
+	  function calcular(){
+	  oXML = AJAXCrearObjeto()
+	  oXML.open('POST', 'procesar.php')
+	  oXML.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	  oXML.onreadystatechange = leerDatos
+	  oXML.send(generarCadenaDatos());
+	  }
+
+	  function generarCadenaDatos(){
+	  		var iNum1 = document.getElementById('numero1').value;
+	  		var iNum2 = document.getElementById('numero2').value;
+	  		var sFinal = 'numero1=' + iNum1 + '&numero2=' + iNum2 + '&nocache=' + Math.random();
+	  		return sFinal;
+
+	  }
+
+
+
+
+	
+	</script>	
+</body>
+</html>

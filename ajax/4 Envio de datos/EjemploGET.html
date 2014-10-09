@@ -1,0 +1,67 @@
+<html>
+<head>
+<script type="text/javascript">
+/*var cadena = "http://www.ejemplo.com/ruta1/index.php?parametro=valor con ñ y &";
+var cadena_segura = encodeURIComponent(cadena);
+// cadena_segura = "http%3A%2F%2Fwww.ejemplo.com%2Fruta1%2Findex.php%3Fparametro%3Dvalor%20con%20%C3%B1%20y%20%26";
+ 
+var cadena_segura = encodeURI(cadena); // cadena_segura = "http://www.ejemplo.com/ruta1/index.php?parametro=valor%20con%20%C3%B1%20y%20";*/
+
+var READY_STATE_COMPLETE=4;
+var oXML = null; 
+ 
+function AJAXCrearObjeto() {
+  if(window.XMLHttpRequest) {
+    return new XMLHttpRequest(); 
+  }
+  else if(window.ActiveXObject) {
+    return new ActiveXObject("Microsoft.XMLHTTP");
+  } 
+}
+ 
+function crea_query_string() {
+  var fecha = document.getElementById("fecha_nacimiento");
+  var cp = document.getElementById("codigo_postal");
+  var telefono = document.getElementById("telefono");
+ 
+  return "fecha_nacimiento=" + encodeURIComponent(fecha.value) +
+         "&codigo_postal=" + encodeURIComponent(cp.value) +
+         "&telefono=" + encodeURIComponent(telefono.value) +
+         "&nocache=" + Math.random();
+}
+ 
+function valida() {
+  oXML = AJAXCrearObjeto();
+  if(oXML) {
+    oXML.onreadystatechange = procesaRespuesta;
+    oXML.open("GET", "validaDatos.php?" + crea_query_string(), true);
+    oXML.send('');
+  }
+}
+ 
+function procesaRespuesta() {
+  if(oXML.readyState == READY_STATE_COMPLETE) {
+    if(oXML.status == 200) {
+      document.getElementById("respuesta").innerHTML = oXML.responseText;
+    }
+  }
+}
+</script>
+</head>
+<body>
+<form>
+  <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+  <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" /><br/>
+ 
+  <label for="codigo_postal">Codigo postal:</label>
+  <input type="text" id="codigo_postal" name="codigo_postal" /><br/>
+ 
+  <label for="telefono">Telefono:</label>
+  <input type="text" id="telefono" name="telefono" /><br/>
+ 
+  <input type="button" value="Validar datos" onclick="valida()" />
+</form>
+ 
+<div id="respuesta"></div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Realiza un formulario para configurar la BD.
+
+-Dirección
+-Usuario
+-Contraseña
+-Nombre de base de datos
+
+Todo ello lo guardará en un fichero llamado configuracion.json 
+Crea la base de datos con mysql y php.
+Si el fichero configuracion.json ya existe, deberá rellenarse el formulario con los datos. Si cambia de nombre la base de datos, deberá volverse a crear. 

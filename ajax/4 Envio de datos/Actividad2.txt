@@ -1,0 +1,5 @@
+Vas a hacer tu propio cliente de correo web para enviar e-mails.
+
+- Formulario con los campos: E-mail destinatario, asunto, mensaje y botón de enviar. Deberá enviarse por POST a un PHP quien realizará la acción con mail()
+
+- Si el mensaje ha llegado con éxito (la función mail() no devuelve ningún error), borra todos los campos y escribe en la parte superior un mensaje en verde informando de la dicha. En caso contrario, cualquier tipo de incidencia, mantén los campos llenos y arriba muestra que se ha producido algún problema (en rojo).

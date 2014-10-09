@@ -1,0 +1,9 @@
+<?php
+$datos = array(
+	"Fecha" => "Hoy",
+	"Texto" => "Hola mundo");
+$fh = fopen("datos.json", 'w')
+      or die("Error al abrir fichero de salida");
+fwrite($fh, json_encode($datos,JSON_UNESCAPED_UNICODE));
+fclose($fh);
+?>

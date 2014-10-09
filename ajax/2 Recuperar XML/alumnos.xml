@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<xml> //apartir de aqui voy a empezar
+ <alumnos> 
+ 	<id>0</id> 
+ 	<nombre>Lucia</nombre> 
+ </alumnos> 
+ <alumnos> 
+ 	<id>1</id> 
+ 	<nombre>Manolo</nombre> 
+ </alumnos> 
+ <alumnos> 
+ 	<id>2</id> 
+ 	<nombre>Toni</nombre> 
+ </alumnos>
+</xml>

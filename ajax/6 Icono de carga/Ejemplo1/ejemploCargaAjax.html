@@ -1,0 +1,41 @@
+<html>
+<body>
+	<section>
+		<center>
+			<input type="button" value="pulsame" onClick="valida()"><br>
+			<span id="respuesta"></span>
+		</center>
+	</section>
+</body>
+</html>
+<script type="text/javascript">
+var oXML = null;
+ 
+function AJAXCrearObjeto() {
+  if(window.XMLHttpRequest) {
+    return new XMLHttpRequest(); 
+  }
+  else if(window.ActiveXObject) {
+    return new ActiveXObject("Microsoft.XMLHTTP");
+  } 
+}
+ 
+function valida() {
+  oXML = AJAXCrearObjeto();
+  if(oXML) {
+    oXML.onreadystatechange = procesaRespuesta;
+    oXML.open("GET", "bucleLargo.php", true);
+    oXML.send('');
+  }
+}
+ 
+function procesaRespuesta() {
+  if(oXML.readyState == 4) {
+    if(oXML.status == 200) {
+      document.getElementById("respuesta").innerHTML = "";
+    }
+  } else {
+  	document.getElementById("respuesta").innerHTML = "<img src='loading.gif' width='100' heigth='100'>";
+  }
+}
+</script>

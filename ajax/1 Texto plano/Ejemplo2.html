@@ -1,0 +1,43 @@
+<html>
+<body>
+  <h2>Ejemplo en Ajax donde se carga un fichero plano</h2>
+  <br>
+  <input type="button" onclick="cargarPag1()" value="Pagina 1">
+  <input type="button" onclick="cargarPag2()" value="Pagina 2">
+  <div id="divText"></div>
+</body>
+  <script>
+  function leerDatos(){
+    if (oXML.readyState  == 4) {
+       document.getElementById("divText").innerHTML = oXML.responseText
+    }
+  } 
+  function AJAXCrearObjeto(){
+    var obj;
+    if(window.XMLHttpRequest) { // no es IE
+      obj = new XMLHttpRequest()
+    } else { // Es IE o no tiene el objeto
+       try {
+         obj = new ActiveXObject("Microsoft.XMLHTTP");
+      }  catch (e) {
+        alert('El navegador utilizado no está soportado');
+      }
+    }
+    return obj
+  } 
+   
+  function cargarPag1() {
+    oXML = AJAXCrearObjeto()
+    oXML.open('GET', 'quijotePag1.txt')
+    oXML.onreadystatechange = leerDatos
+    oXML.send('')
+  }
+
+  function cargarPag2() {
+    oXML = AJAXCrearObjeto()
+    oXML.open('GET', 'quijotePag2.txt')
+    oXML.onreadystatechange = leerDatos
+    oXML.send('')
+  }
+  </script>
+</html>

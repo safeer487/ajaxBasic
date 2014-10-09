@@ -1,0 +1,39 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+
+//Lectura tipica de un fichero plano con AJAX
+function leerDatos(){
+    if (oXML.readyState  == 4) {
+        //Parseamos JSON
+		aJSON = JSON.parse(oXML.responseText)
+		//Leemos (si es necesario)
+		document.write("Nombre de Jefe: " + aJSON.responsable.Nombre)
+
+		//Leemos varios resultados
+		document.write("<br>Aficiones: ")
+
+		for (var i = 0; i < aJSON.responsable.Aficiones.length; i++) {
+			document.write(aJSON.responsable.Aficiones[i] + " ")
+		};
+    }
+  } 
+  function AJAXCrearObjeto(){
+    var obj;
+    if(window.XMLHttpRequest) { // no es IE
+      obj = new XMLHttpRequest()
+    } else { // Es IE o no tiene el objeto
+       try {
+         obj = new ActiveXObject("Microsoft.XMLHTTP");
+      }  catch (e) {
+        alert('El navegador utilizado no está soportado');
+      }
+    }
+    return obj
+  } 
+   
+  oXML = AJAXCrearObjeto()
+  oXML.open('GET', 'datos.json')
+  oXML.onreadystatechange = leerDatos
+  oXML.send('')
+</script>

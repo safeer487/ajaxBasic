@@ -1,0 +1,1 @@
+Con los conocimientos adquiridos sobre AJAX, MySQL y PHP; realiza un chat.

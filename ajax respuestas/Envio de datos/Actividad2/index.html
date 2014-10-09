@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<style>
+	#resultado{
+		
+	}
+	</style>
+</head>
+<body>
+	<div id="resultado"></div>
+	<input type="text" id="nombre" name="nombre" placeholder="Nombre"><br>
+	<input type="text" id="asunto" name="asunto" placeholder="Asunto"><br>
+	<input type="text" id="email" name="email" placeholder="email"><br>
+	<textarea name="mensaje" id="mensaje" cols="30" rows="10" placeholder="mensaje"></textarea><br>
+
+	<input type="button" onclick="enviar()" value="submit">
+	
+		
+	
+
+	<script>
+		function leerDatos(){
+	    if (oXML.readyState  == 4) {
+	       document.getElementById("resultado").innerHTML = oXML.responseText
+	    }
+	} 
+	function AJAXCrearObjeto(){
+	   var obj;
+	   if(window.XMLHttpRequest) { // no es IE
+	      obj = new XMLHttpRequest()
+	    } else { // Es IE o no tiene el objeto
+	       try {
+	         obj = new ActiveXObject("Microsoft.XMLHTTP");
+	    	}  catch (e) {
+	        alert('El navegador utilizado no está soportado');
+	      }
+	    }
+	    return obj
+	  } 
+	   
+	  function enviar(){
+	  oXML = AJAXCrearObjeto()
+	  oXML.open('POST', 'proceso.php', true)
+	  oXML.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	  oXML.onreadystatechange = leerDatos
+	  oXML.send(generarCadenaDatos());
+	  }
+
+	  function generarCadenaDatos(){
+	  		var sNom = encodeURIComponent(document.getElementById('nombre').value);
+	  		var sAsunto = encodeURIComponent(document.getElementById('asunto').value);
+	  		var sMail = encodeURIComponent(document.getElementById('email').value);
+	  		var sMensaje = encodeURIComponent(document.getElementById('mensaje').value);
+	  		
+
+
+
+	  		var sFinal = 'nombre=' + sNom + '&asunto=' + sAsunto + '&email=' + sMail
+	  		+'&mensaje='+ sMensaje + '&nocache=' + Math.random();
+	  		return sFinal;
+
+	  }
+
+
+
+
+
+
+	</script>
+
+	
+</body>
+</html>

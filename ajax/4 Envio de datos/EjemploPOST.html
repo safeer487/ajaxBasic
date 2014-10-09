@@ -1,0 +1,70 @@
+<html>
+<head>
+
+</head>
+<body>
+    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+    <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" /><br/>
+    <label for="codigo_postal">Codigo postal:</label>
+    <input type="text" id="codigo_postal" name="codigo_postal" /><br/>
+    <label for="telefono">Telefono:</label>
+    <input type="text" id="telefono" name="telefono" /><br/>
+    <input type="button" value="Validar datos" onclick="valida()" />
+    <div id="respuesta"></div>
+
+<script type="text/javascript">
+
+    //Variables
+    var READY_STATE_COMPLETE = 4;
+    var oXML = null;
+
+    /**
+     * Método que envia los datos por AJAX
+     */
+    function AJAXCrearObjeto() {
+        if(window.XMLHttpRequest) {
+            return new XMLHttpRequest(); 
+        }
+        else if(window.ActiveXObject) {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        } 
+    }
+   
+    /**
+     * Método que forma la cadena GET
+     * @return String sTotal
+     */
+    function crearCadenaDatos() {
+        var sNom = encodeURIComponent(document.getElementById('nombre').value)
+        var sAsunto = encodeURIComponent(document.getElementById('asunto').value)
+        var sCorreo = encodeURIComponent(document.getElementById('correo').value)
+        var sMens = encodeURIComponent(document.getElementById('mensaje').value)
+        var sTotal = 'nombre=' + sNom + '&asunto=' + sAsunto 
+        + '&correo=' + sCorreo + '&mensaje=' + sMens + '&nocache='
+        + Math.random()
+        return sTotal
+    }
+ 
+    /**
+     * Método que envía los datos por AJAX
+     */
+    function enviar() {
+        oXML = AJAXCrearObjeto();
+        oXML.onreadystatechange = procesaRespuesta;
+        oXML.open("POST", "procesar.php", true);
+        oXML.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        oXML.send(crearCadenaDatos());
+    }
+    
+    /**
+     * Método que espera a que la informacion se reciba, después
+     * lo imprime en el HTML
+     */
+    function procesaRespuesta() {
+        if(oXML.readyState == READY_STATE_COMPLETE) {
+            document.getElementById("respuesta").innerHTML = oXML.responseText;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+Tu abuelo tiene muy mala memoria, y tu que eres un nieto muy amable has decidido echarle una mano. Por ello has decidido hacer una web donde se muestre listado los nombres de sus nietos. 
+Para que sea ampliable, has decidido que los nombres se guarden en un archivo XML.

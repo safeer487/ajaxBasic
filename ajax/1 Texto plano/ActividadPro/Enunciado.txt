@@ -1,0 +1,3 @@
+Genera un lector de libros en Ajax.
+En pantalla se mostrará un recuadro centrado, con el texto, acompañado de un botón a la derecha y otro a la izquierda. Cuando se pulse en el botón derecho, deberá pasar de página hacia delante; mientras que si se pulsa el otro se retrocederá.
+Te harás valer de "El cuervo" de Edgar Allan Poe, y lo partirás en cuadro documentos de texto (cuervo1.txt, cuervo2.txt...).

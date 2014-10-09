@@ -1,0 +1,40 @@
+<span id="respuesta">Reposo</span>
+<input type="button" onclick="ejecutar()" value="pulsame">
+
+<script type="text/javascript">
+
+/*0 No inicializado (el método open no a sido llamado)
+1 Cargando (se llamó al método open)
+2 Cargado (se llamó al método send y ya tenemos la cabecera de la petición HTTP y el status)
+3 Interactivo (la propiedad responseText tiene datos parciales)
+4 Completado (la propiedad responseText tiene todos los datos pedidos al servidor)*/
+function leerDatos(){
+  if (oXML.readyState == 4){
+    if(oXML.readyState == 4) {
+			document.getElementById("respuesta").innerHTML = "Exito";
+    }
+		}else {
+			document.getElementById("respuesta").innerHTML = "Cargando";
+		}
+} 
+function AJAXCrearObjeto(){
+  var obj;
+  if(window.XMLHttpRequest) { // no es IE
+    obj = new XMLHttpRequest();
+  } else { // Es IE o no tiene el objeto
+     try {
+       obj = new ActiveXObject("Microsoft.XMLHTTP");
+    }  catch (e) {
+      alert('El navegador utilizado no está soportado');
+    }
+  }
+  return obj;
+} 
+
+function ejecutar() {
+	oXML = AJAXCrearObjeto();
+	oXML.open('GET', 'Ejemplo2.php', true);
+	oXML.onreadystatechange = leerDatos;
+	oXML.send(''); 
+}
+</script>

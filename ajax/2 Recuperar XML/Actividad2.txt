@@ -1,0 +1,6 @@
+Un centro escolar de música te ha encargado una web para tener más organizados a sus alumnos. Como programador has decidido guardar la información en un XML y mostrarlo por pantalla de forma ordenada. Las características son:
+
+- 3 Clases: Parvulario, Primaria y ESO.
+- En el parvulario esta: Bach, Mozart,  Beethoven y Chopin.
+- En primaria tenemos a: Liszt, Brahms y Dvorak.
+- En la ESO: Grieg, Debussy y Ravel.

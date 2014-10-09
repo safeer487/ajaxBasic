@@ -1,0 +1,12 @@
+-Has decidido programar una aplicación para indicar al mundo cuando estas bebido.
+La página deberá mostrar una línea con la estructura:
+
+Ahora estoy: con unas copas de más.
+
+O 
+
+Ahora estoy: sobrio. 
+
+La frase, o palabra que cambia, deberá estar alojado en un fichero plano con el nombre de “miEstado.txt”. Y deberás cargarlo con AJAX. 
+
+- Añade un botón de “actualizar”. Donde deberá cambiarlo dinámicamente.

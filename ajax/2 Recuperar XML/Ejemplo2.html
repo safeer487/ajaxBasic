@@ -1,0 +1,54 @@
+<html>
+<head>
+  <script>
+  // Recibe y muestra los datos
+  function leerDatos(){
+    // Comprobamos que se han recibido los datos
+    if (oXML.readyState == 4) {
+      // Accedemos al XML recibido
+      var xml  = oXML.responseXML.documentElement;
+      // Accedemos al select
+      var miLista = document.getElementById('listaNombres');
+      // Vaciamos el DIV
+      miLista.innerHTML = '';
+      // Iteramos cada usuario
+      for (i = 0; i < xml.getElementsByTagName('alumnos').length; i++){
+        // Accedemos al objeto XML usuario
+        var item = xml.getElementsByTagName('alumnos')[i];
+        // Recojemos el id
+        var id = item.getElementsByTagName('id')[0].firstChild.data;
+        // Recojemos el nombre
+        var nombre = item.getElementsByTagName('nombre')[0].firstChild.data;
+        // Mostramos el enlace
+        miLista.innerHTML += '<option value="'+id+'">'+nombre+'</option>\n';
+      }
+    }
+  }  
+
+  // Crea el objeto AJAX
+  function AJAXCrearObjeto(){
+    var obj;
+    if(window.XMLHttpRequest) { // no es IE
+      obj = new XMLHttpRequest();
+    } else { // Es IE o no tiene el objeto
+      try {
+        obj = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      catch (e) {
+        alert('El navegador utilizado no está soportado');
+      }
+    }
+    return obj;
+  }
+
+  oXML = AJAXCrearObjeto();
+  oXML.open('get', 'alumnos.xml');
+  oXML.onreadystatechange = leerDatos;
+  oXML.send('');
+  </script>
+</head>
+<body>
+  <select id="listaNombres">
+  </select>
+</body>
+</html>

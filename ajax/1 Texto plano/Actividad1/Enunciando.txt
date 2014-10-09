@@ -1,0 +1,8 @@
+Se ha abierto un nuevo hospital en el barrio chino, inaugurado con el nombre de Toito. El director quiere mostrar sus empleados en la web para mostrar profesionalidad, pero como aún no están fijos se tendrá que cambiar los nombres varias veces. Dicho esto decides que los nombres estén en un documento plano (doctores.txt) y, para ahorrar ancho de banda, decides cargarlo por AJAX. 
+Ponte los guantes de latex y a trabajar!
+
+Estructura:
+
+Hospital Toito
+
+-Personal: ...

@@ -1,0 +1,35 @@
+<html>
+<body>
+<script>
+function leerDatos(){
+  if (oXML.readyState == 4) {
+     var xml  = oXML.responseXML.documentElement; //recoger todo xml y nos guardamos en la varibale xml
+     for (i = 0; i < xml.getElementsByTagName('alumnos').length; i++){
+       var item = xml.getElementsByTagName('alumnos')[i];//recibir los alumnos
+       var txt = item.getElementsByTagName('nombre')[0].firstChild.data;//recibir lo que esta dentro del alumnos
+       document.write(txt + '<br>');
+      }
+  }
+}
+function AJAXCrearObjeto(){
+var obj;
+if(window.XMLHttpRequest) { // no es IE
+obj = new XMLHttpRequest();
+} else { // Es IE o no tiene el objeto
+try {
+obj = new ActiveXObject("Microsoft.XMLHTTP");
+}
+catch (e) {
+alert('El navegador utilizado no está soportado');
+}
+}
+return obj;
+}
+ 
+oXML = AJAXCrearObjeto();
+oXML.open('get', 'alumnos.xml');
+oXML.onreadystatechange = leerDatos;
+oXML.send('');
+</script>
+</body>
+</html>
